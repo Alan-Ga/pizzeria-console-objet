@@ -12,9 +12,14 @@ let prix;
 let pizzaSelect = null;
 let pizzas = [];
 let update = false;
-pizzas.push(new Pizza(1,"code","libelle",15.5));
-pizzas.push(new Pizza(2,"code2","libelle2",14.5));
-pizzas.push(new Pizza(3,"code3","libelle3",13.5));
+pizzas.push(new Pizza(0,"PEP","Pépéroni",12.50));
+pizzas.push(new Pizza(1,"MAR","Margherita",14.00));
+pizzas.push(new Pizza(2,"REIN","La Reine",11.50));
+pizzas.push(new Pizza(3,"FRO","La 4 fromages",12.00));
+pizzas.push(new Pizza(4,"CAN","La cannibale",12.50));
+pizzas.push(new Pizza(5,"SAV","La savoyarde",13.00));
+pizzas.push(new Pizza(6,"ORI","L’orientale",13.50));
+pizzas.push(new Pizza(7,"IND","L’indienne",14.00));
 menu();
 
 function menu(){
@@ -64,26 +69,11 @@ function ajoutPizza() {
     code = null;
 
     console.log("\n Ajout d'une pizzas :");
-    selectId()
-}
-
-function selectId(){
-    rl.question(update !== true ? 'Entrer un id (optionnel): null ' : 'Id '+pizzaSelect.id +" entrer une nouvelle valeur :", (answer) => {
-        if (answer !== null && answer !== undefined && answer !== "") {
-            if (isNaN(answer)) {
-                selectId();
-            } else {
-                id = parseInt(answer);
-                selectCode();
-            }
-        }else {
-            selectCode();
-        }
-    });
+    selectCode();
 }
 
 function selectCode(){
-    rl.question(update !== true ? 'Entrer un code : ' : 'Code '+pizzaSelect.code +" entrer une nouvelle valeur :", (answer) => {
+    rl.question(update !== true ? 'Veuillez saisir le code : ' : 'Code '+pizzaSelect.code +" entrer une nouvelle valeur :", (answer) => {
         if (answer !== null && answer !== undefined && answer.trim() !== "") {
             code = answer;
             selectLibelle();
@@ -99,7 +89,7 @@ function selectCode(){
 }
 
 function selectLibelle(){
-    rl.question(update !== true ? 'Entrer un libelle : ' : 'Libelle '+pizzaSelect.libelle +" entrer une nouvelle valeur :", (answer) => {
+    rl.question(update !== true ? 'Veuillez saisir le nom (sans espace) : ' : 'Nom '+pizzaSelect.libelle +" entrer une nouvelle valeur :", (answer) => {
         if (answer !== null && answer !== undefined && answer !== "") {
             libelle = answer;
             selectPrix();
@@ -115,7 +105,7 @@ function selectLibelle(){
 }
 
 function selectPrix(){
-    rl.question(update !== true ? 'Entrer un prix : ' : 'Prix '+pizzaSelect.prix+" entrer une nouvelle valeur :", (answer) => {
+    rl.question(update !== true ? 'Veuillez saisir le prix : ' : 'Prix '+pizzaSelect.prix+" entrer une nouvelle valeur :", (answer) => {
         if (!isNaN(answer) && answer !== null && answer !== undefined && answer !== "") {
             prix = parseFloat(answer);
             finishCreateUpdate()
@@ -153,22 +143,20 @@ function miseAJourPizza(){
 
         console.log("\nFaite entrer pour ne pas changer la valeur !");
         update = true;
-        selectId()
+        selectCode();
     }
 }
 
 function selectPizza(isUpdate){
-    console.log(pizzas.toString());
-    console.log("\n ### SELECTIONNER UNE PIZZA ###");
-    for(let i = 0; i < pizzas.length; i++){
-        console.log(i+"- "+pizzas[i].toString())
-    }
-    rl.question('Entrer un numéro de pizza : ', (answer) => {
-        if ( answer === "" || isNaN(answer) || (answer < 0 || answer >= pizzas.length)) {
+    let tabCode = [];
+        console.log("\n ### SELECTIONNER UNE PIZZA ###");
+    pizzas.forEach(x => {console.log(x.toString()); tabCode.push(x.code)});
+    rl.question('Veuillez choisir le code de la pizza à modifier : ', (answer) => {
+        if ( !tabCode.includes(answer)) {
             console.log("/!\\ valeur incorrect!!");
             selectPizza(isUpdate);
         }else {
-            pizzaSelect = pizzas[parseInt(answer)];
+            pizzaSelect = pizzas[tabCode.indexOf(answer)];
             if (isUpdate === true) {
                 miseAJourPizza();
             }else{
