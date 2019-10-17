@@ -8,9 +8,8 @@ const Pizza = class Pizza {
     }
 
     toString(){
-             return "Id : " + this.id + "\ncode : " + this.code + "\nlibelle : " + this.libelle + "\nprix : " + this.prix+"\n";
+             return this.code + " -> " + this.libelle + "(" + this.prix+"€)";
     }
-
     update(id,code,libelle,prix){
         this.id = id;
         this.code = code;
