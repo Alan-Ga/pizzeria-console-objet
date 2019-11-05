@@ -53,137 +53,22 @@ function menu(){
 
 function listPizza(){
     console.log("\n Liste des pizzas :");
-    pizzas.forEach(x => console.log(x.toString()));
     menu();
 }
 
 function ajoutPizza() {
-    id = null;
-    libelle = null;
-    prix = null;
-    code = null;
-
     console.log("\n Ajout d'une pizzas :");
-    selectId()
-}
-
-function selectId(){
-    rl.question(update !== true ? 'Entrer un id (optionnel): null ' : 'Id '+pizzaSelect.id +" entrer une nouvelle valeur :", (answer) => {
-        if (answer !== null && answer !== undefined && answer !== "") {
-            if (isNaN(answer)) {
-                selectId();
-            } else {
-                id = parseInt(answer);
-                selectCode();
-            }
-        }else {
-            selectCode();
-        }
-    });
-}
-
-function selectCode(){
-    rl.question(update !== true ? 'Entrer un code : ' : 'Code '+pizzaSelect.code +" entrer une nouvelle valeur :", (answer) => {
-        if (answer !== null && answer !== undefined && answer.trim() !== "") {
-            code = answer;
-            selectLibelle();
-        }else {
-            if (update === true ){
-                selectLibelle();
-                return;
-            }
-            console.log("/!\\ valeur incorrect!!")
-            selectCode();
-        }
-    });
-}
-
-function selectLibelle(){
-    rl.question(update !== true ? 'Entrer un libelle : ' : 'Libelle '+pizzaSelect.libelle +" entrer une nouvelle valeur :", (answer) => {
-        if (answer !== null && answer !== undefined && answer !== "") {
-            libelle = answer;
-            selectPrix();
-        }else {
-            if (update === true ){
-                selectPrix();
-                return;
-            }
-            console.log("/!\\ valeur incorrect !!")
-            selectLibelle();
-        }
-    });
-}
-
-function selectPrix(){
-    rl.question(update !== true ? 'Entrer un prix : ' : 'Prix '+pizzaSelect.prix+" entrer une nouvelle valeur :", (answer) => {
-        if (!isNaN(answer) && answer !== null && answer !== undefined && answer !== "") {
-            prix = parseFloat(answer);
-            finishCreateUpdate()
-        }else {
-            if (update === true ){
-                finishCreateUpdate();
-                return;
-            }
-            console.log("/!\\ valeur incorrect!!")
-            selectPrix();
-        }
-    });
-}
-
-function finishCreateUpdate(){
-    if (update === false){
-        pizzas.push(new Pizza(id,code,libelle,prix));
-    }else {
-        pizzaSelect.update(id,code,libelle,prix);
-    }
     menu();
 }
 
+
 function miseAJourPizza(){
-    if (pizzaSelect === null){
-        selectPizza(true);
-    }else {
-        id =pizzaSelect.id;
-        libelle = pizzaSelect.libelle;
-        code = pizzaSelect.code;
-        prix = pizzaSelect.prix;
-
-        console.log("\nMise a jour de la pizzas :");
-        console.log(pizzaSelect.toString());
-
-        console.log("\nFaite entrer pour ne pas changer la valeur !");
-        update = true;
-        selectId()
-    }
-}
-
-function selectPizza(isUpdate){
-    console.log(pizzas.toString());
-    console.log("\n ### SELECTIONNER UNE PIZZA ###");
-    for(let i = 0; i < pizzas.length; i++){
-        console.log(i+"- "+pizzas[i].toString())
-    }
-    rl.question('Entrer un numéro de pizza : ', (answer) => {
-        if ( answer === "" || isNaN(answer) || (answer < 0 || answer >= pizzas.length)) {
-            console.log("/!\\ valeur incorrect!!");
-            selectPizza(isUpdate);
-        }else {
-            pizzaSelect = pizzas[parseInt(answer)];
-            if (isUpdate === true) {
-                miseAJourPizza();
-            }else{
-                supprimerPizza();
-            }
-        }
-    });
+    console.log("\nMise a jour de la pizzas :");
+    menu();
 
 }
+
 function supprimerPizza(){
-    if (pizzaSelect === null){
-        selectPizza(false   );
-    }else {
-        var index = pizzas.indexOf(pizzaSelect);
-        pizzas.splice(index,1);
-        menu();
-    }
+    console.log("\nSuppression d’une pizza :");
+    menu();
 }
