@@ -73,7 +73,7 @@ function ajoutPizza() {
 }
 
 function selectCode(){
-    rl.question(update !== true ? 'Veuillez saisir le code : ' : 'Code '+pizzaSelect.code +" entrer une nouvelle valeur :", (answer) => {
+    rl.question(update !== true ? 'Veuillez saisir le code : ' : 'Code '+pizzaSelect.code +" Veuillez saisir le nouveau code :", (answer) => {
         if (answer !== null && answer !== undefined && answer.trim() !== "") {
             code = answer;
             selectLibelle();
@@ -89,7 +89,7 @@ function selectCode(){
 }
 
 function selectLibelle(){
-    rl.question(update !== true ? 'Veuillez saisir le nom (sans espace) : ' : 'Nom '+pizzaSelect.libelle +" entrer une nouvelle valeur :", (answer) => {
+    rl.question(update !== true ? 'Veuillez saisir le nom (sans espace) : ' : 'Nom '+pizzaSelect.libelle +" Veuillez saisir le nouveau nom (sans espace):", (answer) => {
         if (answer !== null && answer !== undefined && answer !== "") {
             libelle = answer;
             selectPrix();
@@ -105,7 +105,7 @@ function selectLibelle(){
 }
 
 function selectPrix(){
-    rl.question(update !== true ? 'Veuillez saisir le prix : ' : 'Prix '+pizzaSelect.prix+" entrer une nouvelle valeur :", (answer) => {
+    rl.question(update !== true ? 'Veuillez saisir le prix : ' : 'Prix '+pizzaSelect.prix+" Veuillez saisir le nouveau nom (sans espace) :", (answer) => {
         if (!isNaN(answer) && answer !== null && answer !== undefined && answer !== "") {
             prix = parseFloat(answer);
             finishCreateUpdate()
